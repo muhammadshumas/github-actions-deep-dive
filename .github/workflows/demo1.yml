@@ -2,8 +2,18 @@ name: Events Demo 1
 on:
   pull_request:
     # only trigger event if pull request is either opened or edited
-    types: [opened,edited]
+    types: [opened, edited]
+    # single * means any character other then /
+    # doubble * means any characters including /
+    branches: [master, dev-*, releases/**]
   workflow_dispatch:
+  push:
+    branches: [master, dev-*, releases/**]
+    # only trigger workflow if any files changes in the given folder
+    # paths: ['.github/workflows/*']
+
+    # Dont trigger the workflow if any file changes in the given path
+    # paths-ignore: ['.github/workflows/*']
 jobs:
   deploy:
     runs-on: ubuntu-latest
